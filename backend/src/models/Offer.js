@@ -12,7 +12,7 @@ const offerSchema = new mongoose.Schema({
     },
     discountValue:{
         type: Number,
-        required: true
+        required: false
     },
     userTier:{
         type: [String],
@@ -22,7 +22,8 @@ const offerSchema = new mongoose.Schema({
     offerLimit:{
         limitType:{
             type: String,
-            enum: ['limited', 'recurring']
+            enum: ['limited', 'recurring'],
+            required: false
         },
         period:{
             type: String,
@@ -40,6 +41,15 @@ const offerSchema = new mongoose.Schema({
         count:{
             type: Number,
             min: [1, 'Offer limit count must be at least 1'],
+            validate:{
+                validator: function(value){
+                    if(!!this.offerLimit.limitType){
+                        return !!value;
+                    }
+                    return !value;
+                },
+                message: 'Count is required when limitType is set and should not be set when limitType is not set.'
+            }
         }
     },
     loyaltyLadder:{
