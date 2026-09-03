@@ -1,0 +1,19 @@
+<h2>Offers</h2>
+
+@if (offers().length === 0){
+    <p>There are currently no offers...</p>
+}
+@else{
+    <ul>
+        @for (offer of offers(); track offer._id){
+            <li>
+                <strong> {{ offer.storeName }}</strong> -
+                {{ offer.discountType }}
+                @if(offer.discountValue){
+                    ({{ offer.discountValue }}%)
+                }
+                - Status: {{ offer.offerStatus ? 'Active' : 'Inactive'}}
+            </li>
+        }
+    </ul>
+}
