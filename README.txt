@@ -13,7 +13,7 @@ Setup Instructions
 3.2. npm install
 3.3. npm start
 
-4. Start the frontend using a different Visual Studio Code terminal:
+4. Start the frontend using a different Visual Studio Code terminal and put in the following commands:
 4.1. cd frontend
 4.2. npm install
 4.3. ng serve
