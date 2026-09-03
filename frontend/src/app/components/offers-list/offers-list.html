@@ -20,7 +20,7 @@
                 
                 - {{ offer.redemptionMode }}
                 
-                - Status: {{ offer.offerStatus ? 'Active' : 'Inactive'}}
+                - Status: <span [class] = "offer.offerStatus ? 'status-active' : 'status-inactive'">{{ offer.offerStatus ? 'Active' : 'Inactive' }}</span>
                 
                 <br />
                 Tiers: {{ offer.userTier.join(', ') }}
