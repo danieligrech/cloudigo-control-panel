@@ -77,4 +77,3 @@ router.patch("/:id/status", async (req, res) => {
 
 //Exporting the router so it can be used in server.js
 module.exports = router;
-        
