@@ -1,0 +1,177 @@
+<h2>Add a New Offer!</h2>
+
+<form (submit) = "onSubmit()">
+    <div>
+        <label for = "storeName">Store Name</label>
+        <input
+            id = "storeName"
+            type = "text"
+            [value] = "storeName()"
+            (input) = "storeName.set($any($event.target).value)"
+        />
+    </div>
+
+    <div>
+    <label for = "discountType">Discount Type</label>
+    <select
+      id = "discountType"
+      [value] = "discountType()"
+      (change) = "discountType.set($any($event.target).value)"
+    >
+      <option value = "percentage">Percentage</option>
+      <option value = "custom">Custom</option>
+    </select>
+  </div>
+
+  <div>
+    @if(discountType() === 'percentage'){
+        <label for = "discountValue">Discount Value (%)</label>
+        <input
+            id = "discountValue"
+            type = "number"
+            min = "1"
+            max = "100"
+            (input) = "discountValue.set($any($event.target).value ? +$any($event.target).value : null)"
+        />
+    }
+    @else{
+        <label for = "discountValue">Discount percentage not applicable..</label>
+    }
+  </div>
+
+  <div>
+    @if(discountType() === 'custom'){
+        <label for = "customOffer">Custom Offer</label>
+        <input
+            id = "customOffer"
+            type = "text"
+            (input) = "customOffer.set($any($event.target).value)"
+        />
+    }
+    @else{
+        <label for = "customOffer">Custom offer not applicable...</label>
+    }
+  </div>
+
+  <div>
+    <label for = "redemptionMode">Redemption Mode</label>
+    <select
+      id = "redemptionMode"
+      [value] = "redemptionMode()"
+      (change) = "redemptionMode.set($any($event.target).value)"
+    >
+      <option value = "in-person">In-person</option>
+      <option value = "online">Online</option>
+    </select>
+  </div>
+
+  <div>
+    <p>User Tiers</p>
+    <label>
+        <input type = "checkbox" (change) = "toggleTier('standard')"/> Standard
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleTier('premium')"/> Premium
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleTier('corporate')"/> Corporate
+    </label>
+  </div>
+
+  <div>
+    <p>Valid Days</p>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Monday')"/> Monday
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Tuesday')"/> Tuesday
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Wednesday')"/> Wednesday
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Thursday')"/> Thursday
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Friday')"/> Friday
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Saturday')"/> Saturday
+    </label>
+    <label>
+        <input type = "checkbox" (change) = "toggleDay('Sunday')"/> Sunday
+    </label>
+  </div>
+
+  <div>
+    <p>Usage Limit</p>
+    <select [value] = "limitType()" (change) = "limitType.set($any($event.target).value)">
+        <option value = "">No limit</option>
+        <option value = "limited">Limited</option>
+        <option value = "recurring">Recurring</option>
+    </select>
+
+    @if(limitType() !== ''){
+        <label for = "count">Count</label>
+        <input
+            id = "count"
+            type = "number"
+            min = "1"
+            (input) = "count.set($any($event.target).value ? +$any($event.target).value : null)"
+        />
+    }
+
+    @if(limitType() === "recurring"){
+        <label for = "period">Period</label>
+        <select id = "period" [value] = "period()" (change) = "period.set($any($event.target).value)">
+            <option value = "">Select a period</option>
+            <option value = "daily">Daily</option>
+            <option value = "weekly">Weekly</option>
+            <option value = "monthly">Monthly</option>
+            <option value = "annually">Annually</option>
+        </select>
+    }
+  </div>
+
+  <div>
+    <label for = "minimumSpent">Minimum Spending Limit</label>
+    <input
+        id = "minimumSpent"
+        type = "number"
+        min = "0"
+        (input) = "minimumSpent.set($any($event.target).value ? +$any($event.target).value : null)"
+    />
+  </div>
+
+  <div>
+    <label for="maxPeople">Max People</label>
+    <input
+        id = "maxPeople"
+        type = "number"
+        min = "1"
+        (input) = "maxPeople.set($any($event.target).value ? +$any($event.target).value : null)"
+    />
+    </div>
+
+    @if (userTier().includes('premium')) {
+    <div>
+        <label for = "loyaltyLadder">Loyalty Ladder (comma-separated %, e.g. 10,10,10,15)</label>
+        <input
+            id = "loyaltyLadder"
+            type = "text"
+            (input) = "loyaltyLadderInput.set($any($event.target).value)"
+        />
+    </div>
+    }
+
+    <div>
+        <label for = "offerExpiry">Expiry Date (internal only, optional)</label>
+        <input
+            id = "offerExpiry"
+            type = "date"
+            (input) = "offerExpiry.set($any($event.target).value)"
+        />
+    </div>
+
+  <button type = "submit">Add Offer</button>
+</form>

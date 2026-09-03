@@ -8,11 +8,57 @@
         @for (offer of offers(); track offer._id){
             <li>
                 <strong> {{ offer.storeName }}</strong> -
+                
                 {{ offer.discountType }}
+                
                 @if(offer.discountValue){
                     ({{ offer.discountValue }}%)
                 }
+                @else if (offer.customOffer){
+                    ({{ offer.customOffer }})
+                }
+                
+                - {{ offer.redemptionMode }}
+                
                 - Status: {{ offer.offerStatus ? 'Active' : 'Inactive'}}
+                
+                <br />
+                Tiers: {{ offer.userTier.join(', ') }}
+                <br />
+                
+                Valid Days: {{ offer.daysValid.join(', ') }}
+                
+                @if(offer.offerLimit){
+                    @if(offer.offerLimit?.limitType === "limited"){
+                        - The {{ offer.offerLimit?.limitType }} offer
+                        will expire after {{ offer.offerLimit?.count }} use/s
+                    }
+                    @else if(offer.offerLimit?.limitType === "recurring"){
+                        - The {{ offer.offerLimit?.limitType }} limited offer can only be used
+                        {{ offer.offerLimit?.count }} time/s 
+                        {{ offer.offerLimit?.period }}
+                    }
+                }
+
+                @if(offer.minimumSpent){
+                    - Minimum Spending Amount: {{ offer.minimumSpent }}
+                }
+
+                @if(offer.maxPeople){
+                    - Max People: {{ offer.maxPeople }}
+                }
+
+                @if(offer.loyaltyLadder){
+                    - Loyalty Ladder: {{ offer.loyaltyLadder.join(', ') }}
+                }
+
+                @if(offer.offerExpiry){
+                    {{ offer.offerExpiry }}
+                }
+
+                <button (click)="toggleStatus(offer._id)">
+                    {{ offer.offerStatus ? 'Deactivate' : 'Activate' }}
+                </button>
             </li>
         }
     </ul>

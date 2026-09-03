@@ -12,7 +12,29 @@ const offerSchema = new mongoose.Schema({
     },
     discountValue:{
         type: Number,
-        required: false
+        min: 1,
+        max: 100,
+        validate:{
+            validator: function(value){
+                if (this.discountType === 'percentage') {
+                    return !!value;
+                }
+                return !value;
+            },
+            message: "discountValue is only required for discounts which are a percentage"
+        }
+    },
+    customOffer:{
+        type: String,
+        validate:{
+            validator: function(value){
+                if (this.discountType === 'custom') {
+                    return !!value;
+                }
+                return !value;
+            },
+            message: "customOffer is only required for offers with custom discounts"
+        }
     },
     userTier:{
         type: [String],

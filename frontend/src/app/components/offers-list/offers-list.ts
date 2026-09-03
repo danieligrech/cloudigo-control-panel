@@ -20,4 +20,14 @@ export class OffersList implements OnInit{
       this.offers.set(offers);
     });
   }
+
+  toggleStatus(id: string): void{
+    this.offerService.toggleOfferStatus(id).subscribe(updatedOffer => {
+      const updatedOffers = this.offers().map(offer =>
+        offer._id === id ? updatedOffer : offer
+      );
+
+      this.offers.set(updatedOffers);
+    });
+  }
 }

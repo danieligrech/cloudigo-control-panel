@@ -12,6 +12,7 @@ export interface Offer{
     storeName: string;
     discountType: 'percentage' | 'custom';
     discountValue?: number;
+    customOffer?: string;
     userTier: ('standard' | 'premium' | 'corporate')[];
     offerLimit?: OfferLimit;
     loyaltyLadder?: number[];
