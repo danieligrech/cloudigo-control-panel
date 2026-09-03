@@ -7,27 +7,38 @@
     <ul>
         @for (offer of offers(); track offer._id){
             <li>
-                <strong> {{ offer.storeName }}</strong> -
+                <strong> {{ offer.storeName }}</strong>
                 
+                <br/>
                 {{ offer.discountType }}
-                
+                <br/>
+
+                <br/>
                 @if(offer.discountValue){
                     ({{ offer.discountValue }}%)
                 }
                 @else if (offer.customOffer){
                     ({{ offer.customOffer }})
                 }
-                
-                - {{ offer.redemptionMode }}
-                
-                - Status: <span [class] = "offer.offerStatus ? 'status-active' : 'status-inactive'">{{ offer.offerStatus ? 'Active' : 'Inactive' }}</span>
-                
-                <br />
+                <br/>
+
+                <br/>
+                {{ offer.redemptionMode }}
+                <br/>
+
+                <br/>
+                Status: <span [class] = "offer.offerStatus ? 'status-active' : 'status-inactive'">{{ offer.offerStatus ? 'Active' : 'Inactive' }}</span>
+                <br/>
+
+                <br/>
                 Tiers: {{ offer.userTier.join(', ') }}
-                <br />
+                <br/>
                 
+                <br/>
                 Valid Days: {{ offer.daysValid.join(', ') }}
-                
+                <br/>
+
+                <br/>
                 @if(offer.offerLimit){
                     @if(offer.offerLimit?.limitType === "limited"){
                         - The {{ offer.offerLimit?.limitType }} offer
@@ -39,22 +50,31 @@
                         {{ offer.offerLimit?.period }}
                     }
                 }
+                <br/>
 
+                <br/>
                 @if(offer.minimumSpent){
                     - Minimum Spending Amount: {{ offer.minimumSpent }}
                 }
+                <br/>
 
+                <br/>
                 @if(offer.maxPeople){
                     - Max People: {{ offer.maxPeople }}
                 }
+                <br/>
 
-                @if(offer.loyaltyLadder){
-                    - Loyalty Ladder: {{ offer.loyaltyLadder.join(', ') }}
+                <br/>
+                @if(offer.loyaltyLadder && offer.loyaltyLadder.length > 0){
+                    Loyalty Ladder: {{ offer.loyaltyLadder.join(', ') }}
                 }
+                <br/>
 
+                <br/>
                 @if(offer.offerExpiry){
-                    {{ offer.offerExpiry }}
+                    - Expires {{ offer.offerExpiry | date:'mediumDate' }}
                 }
+                <br/>
 
                 <button (click)="toggleStatus(offer._id)">
                     {{ offer.offerStatus ? 'Deactivate' : 'Activate' }}

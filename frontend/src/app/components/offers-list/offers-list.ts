@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common'
 import { OfferService, Offer } from '../../services/offer';
 
 @Component({
-  imports: [],
+  imports: [CommonModule],
   selector: 'app-offers-list',
   styleUrl: './offers-list.css',
   templateUrl: './offers-list.html',
